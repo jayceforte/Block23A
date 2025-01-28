@@ -1,6 +1,6 @@
 // Use the API_URL variable to make fetch requests to the API.
 // Replace the placeholder with your cohort name (ex: 2109-UNF-HY-WEB-PT)
-const cohortName = "YOUR COHORT NAME HERE";
+const cohortName = "2410-ftb-et-web-am";
 const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 
 /**
@@ -10,6 +10,9 @@ const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 const fetchAllPlayers = async () => {
   try {
     // TODO
+    const response = await fetch(API_URL)
+    const data = await response.json();
+    renderAllPlayers(data)
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
@@ -23,6 +26,9 @@ const fetchAllPlayers = async () => {
 const fetchSinglePlayer = async (playerId) => {
   try {
     // TODO
+    const response = await fetch(API_URL)
+    const data = await response.json()
+    renderSinglePlayer(data)
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -36,6 +42,13 @@ const fetchSinglePlayer = async (playerId) => {
 const addNewPlayer = async (playerObj) => {
   try {
     // TODO
+    const response = await fetch (API_URL)
+    method: 'POST'
+    Headers: {
+      'Content-Type'; 'application/json'
+    };
+    body: JSON.stringify(addNewPlayer)
+    const data = await response.json();
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
   }
@@ -48,6 +61,9 @@ const addNewPlayer = async (playerObj) => {
 const removePlayer = async (playerId) => {
   try {
     // TODO
+    await fetch(API_URL); {
+      method: 'DELETE'
+    }
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -77,6 +93,9 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
   // TODO
+  playerList.forEach(player => {
+    renderAllPlayers(player);
+  })
 };
 
 /**
@@ -94,6 +113,10 @@ const renderAllPlayers = (playerList) => {
  */
 const renderSinglePlayer = (player) => {
   // TODO
+  const li = document.createElement('li');
+  li.innerHTML = '
+  <strong>${player.name}</strong><br>
+  '
 };
 
 /**
