@@ -10,9 +10,15 @@ const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 const fetchAllPlayers = async () => {
   try {
     // TODO
-    const response = await fetch(API_URL)
+    // to fetch all players, we need to make a GET request to https://fsa-puppy-bowl.herokuapp.com/api/2410-FTB-ET-WEB-AM/players - use the base URL, but add /players to the end
+    const response = await fetch(`${API_URL}/players`);
     const data = await response.json();
-    renderAllPlayers(data)
+    // here, data = { success: true, data: { players: [] }, error: null }
+    // use a console.log to see what the data looks like 
+    console.log(data)
+    // return the parsed data so that you can pass it to the renderAllPlayers function in your init function
+    return data.data.players;
+    //renderAllPlayers(data)
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
@@ -93,8 +99,15 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
   // TODO
+  // before looping over the playerList, you need to save the main element to a variable so that you can replace its contents
+  const main = document.querySelector('main');
   playerList.forEach(player => {
-    renderAllPlayers(player);
+    // you are correctly looping over the player data, but for each player you need to create a new element to display the player information
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${player.name}</strong><br>`;
+    // then you need to append the new element to the main element
+    main.appendChild(li);
+    // renderAllPlayers(player);
   })
 };
 
@@ -114,9 +127,8 @@ const renderAllPlayers = (playerList) => {
 const renderSinglePlayer = (player) => {
   // TODO
   const li = document.createElement('li');
-  li.innerHTML = '
-  <strong>${player.name}</strong><br>
-  '
+  // this was a little syntax error that was preventing the page from loading - make sure that your HTML is properly closed
+  li.innerHTML = '<strong>${player.name}</strong><br>'
 };
 
 /**
@@ -136,6 +148,7 @@ const renderNewPlayerForm = () => {
  * Initializes the app by fetching all players and rendering them to the DOM.
  */
 const init = async () => {
+  // fetchAllPlayers now returns player data, which can be passed to renderAllPlayers
   const players = await fetchAllPlayers();
   renderAllPlayers(players);
 
