@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="styles.css" />
     <title>PuppyBowl</title>
   </head>
-  <body>
-    <form id="new-player-form"></form>
-    <main></main>
-    <script src="script.js"></script>
-  </body>
+  <form id="add-player-form">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="text" id="breed" placeholder="Breed" required />
+  <input type="url" id="imageUrl" placeholder="Image URL" required />
+  <button type="submit">Add Puppy</button>
+</form>
+
+<div id="players-container"></div>
+
+<body>
+  <h1>PuppyBowl Players</h1>
+  <div id="players-cards"></div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
